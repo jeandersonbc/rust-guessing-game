@@ -3,13 +3,14 @@
 extern crate rand;
 
 use std::io;
+use std::cmp::Ordering;
 use rand::Rng;
 
 fn main() {
     let secret = rand::thread_rng().gen_range(1, 101);
 
     println!("Guess the number!");
-    println!("Please, input your guess.");
+    println!("Please, input your guess (between 1 and 100).");
 
     // "let" statements allow to create variables...
     // In Rust, variables are IMMUTABLE by default! To make the variable
@@ -33,4 +34,19 @@ fn main() {
         .expect("Failed to read line");
 
     println!("You guessed: {}", guess);
+
+    // It is necessary to convert the string guess to an integer type
+    // Here, we are shadowing the previous guess declaration and also
+    // annotating it as a unsigned 32-bit integer.
+    // Again, "parse" returns a Result and the "expect" function returns
+    // the actual parsed value if Result is "Ok".
+    let guess: u32 = guess.trim().parse()
+        .expect("Please, type a number!");
+
+    // Match expressions are similar to switch-case in Java
+    match guess.cmp(&secret) {
+        Ordering::Less    => println!("Too small!"),
+        Ordering::Greater => println!("Too big!"),
+        Ordering::Equal   => println!("You win!"),
+    }
 }

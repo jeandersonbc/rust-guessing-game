@@ -1,6 +1,14 @@
+// Indicates that this an external lib.
+// This is equivalent to "use rand".
+extern crate rand;
+
 use std::io;
+use rand::Rng;
 
 fn main() {
+    let secret = rand::thread_rng().gen_range(1, 101);
+    println!("The secret number is {}", secret);
+
     println!("Guess the number!");
     println!("Please, input your guess.");
 

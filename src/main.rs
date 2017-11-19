@@ -7,14 +7,13 @@ use rand::Rng;
 
 fn main() {
     let secret = rand::thread_rng().gen_range(1, 101);
-    println!("The secret number is {}", secret);
 
     println!("Guess the number!");
     println!("Please, input your guess.");
 
     // "let" statements allow to create variables...
     // In Rust, variables are IMMUTABLE by default! To make the variable
-    // multable, you have to add the modifier "mut", as well.
+    // mutable, you have to add the modifier "mut", as well.
     // Notice that, if you try to change the value of an immutable variable,
     // the Rust compiler will complain about it.
     let mut guess = String::new();

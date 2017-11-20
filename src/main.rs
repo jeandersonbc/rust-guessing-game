@@ -40,10 +40,18 @@ fn main() {
         // It is necessary to convert the string guess to an integer type
         // Here, we are shadowing the previous guess declaration and also
         // annotating it as a unsigned 32-bit integer.
-        // Again, "parse" returns a Result and the "expect" function returns
-        // the actual parsed value if Result is "Ok".
-        let guess: u32 = guess.trim().parse()
-            .expect("Please, type a number!");
+        //
+        // Replacing a call to "expect" by a match expression is the proper
+        // way to handle errors in this situation. Since "parse" returns a
+        // result, we can use pattern matching to handle problems or continue
+        // the execution if everything is fine
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => {
+                println!("Bad input. Only integers are allowed!");
+                continue;
+            }
+        };
 
         // Match expressions are similar to switch-case in Java
         match guess.cmp(&secret) {
